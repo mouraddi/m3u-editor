@@ -1,0 +1,53 @@
+name: m3u-editor
+service:
+  name: m3u-editor
+  instance_type: nano
+  ports:
+    - port: 36400
+      protocol: http
+  routes:
+    - path: /
+      port: 36400
+  env:
+    - key: APP_URL
+      value: "http://localhost"
+    - key: APP_PORT
+      value: "36400"
+    - key: TZ
+      value: "Etc/UTC"
+    - key: ENABLE_POSTGRES
+      value: "true"
+    - key: PG_DATABASE
+      value: "m3ue"
+    - key: PG_USER
+      value: "m3ue"
+    - key: PG_PASSWORD
+      value: "changeme"
+    - key: DB_CONNECTION
+      value: "pgsql"
+    - key: DB_HOST
+      value: "localhost"
+    - key: DB_PORT
+      value: "5432"
+    - key: DB_DATABASE
+      value: "m3ue"
+    - key: DB_USERNAME
+      value: "m3ue"
+    - key: DB_PASSWORD
+      value: "changeme"
+    - key: REDIS_ENABLED
+      value: "true"
+    - key: REDIS_HOST
+      value: "localhost"
+    - key: M3U_PROXY_ENABLED
+      value: "false"
+    - key: M3U_PROXY_TOKEN
+      value: "changeme"
+  docker:
+    image: sparkison/m3u-editor:latest
+  healthcheck:
+    port: 36400
+    path: "/up"
+    interval: 30
+    timeout: 10
+    retries: 5
